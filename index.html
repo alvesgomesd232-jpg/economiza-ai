@@ -1,151 +1,86 @@
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Economiza Aí</title>
+<meta name="theme-color" content="#087b43">
+<meta name="description" content="Compare preços, encontre ofertas e economize com o Economiza Aí.">
+<title>Economiza Aí | Compare e economize</title>
 <style>
-* { box-sizing: border-box; }
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background: #f4f7f5;
-  color: #17251d;
-}
-header {
-  background: #087b43;
-  color: white;
-  padding: 25px 18px;
-}
-.logo { font-size: 25px; font-weight: bold; }
-header p { margin-bottom: 0; }
-main { padding: 18px; max-width: 850px; margin: auto; }
-h2 { margin-top: 24px; }
-.search {
-  display: flex;
-  gap: 8px;
-  margin-top: 20px;
-}
-input {
-  min-width: 0;
-  flex: 1;
-  padding: 15px;
-  border: 1px solid #ddd;
-  border-radius: 10px;
-  font-size: 16px;
-}
-button {
-  border: 0;
-  border-radius: 10px;
-  padding: 12px 16px;
-  background: #087b43;
-  color: white;
-  font-weight: bold;
-  cursor: pointer;
-}
-.categories {
-  display: flex;
-  gap: 9px;
-  overflow-x: auto;
-  padding: 10px 0;
-}
-.categories button {
-  white-space: nowrap;
-  background: #e0eee5;
-  color: #087b43;
-}
-.categories button.active { background: #087b43; color: white; }
-.products {
-  display: grid;
-  grid-template-columns: repeat(auto-fit,minmax(145px,1fr));
-  gap: 12px;
-}
-.card {
-  background: white;
-  padding: 15px;
-  border-radius: 14px;
-  box-shadow: 0 2px 9px #0000000c;
-}
-.product-icon { font-size: 40px; }
-.card h3 { font-size: 16px; }
-.price { color: #087b43; font-size: 21px; font-weight: bold; }
-.old { color: #888; text-decoration: line-through; font-size: 13px; }
-.store { color: #777; font-size: 13px; }
-footer { text-align: center; padding: 30px; color: #777; }
+:root{--green:#087b43;--dark:#075c34;--mint:#e8f5ed;--bg:#f5f8f6;--ink:#17251d;--muted:#68766e;--line:#e4ebe6;--white:#fff}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,Arial,sans-serif}
+header{background:linear-gradient(120deg,#075c34,#0b9855);color:white;padding:22px max(18px,calc((100% - 1120px)/2)) 30px}
+.top{display:flex;justify-content:space-between;align-items:center;gap:14px}.brand{font-size:24px;font-weight:800;letter-spacing:-.6px}.brand span{color:#baf2cf}.tag{font-size:13px;color:#e0f5e8}
+.hero{max-width:1120px;margin:26px auto 0}.hero h1{font-size:clamp(25px,5vw,38px);margin:0 0 8px}.hero p{margin:0;color:#d9f0e2}
+.search{display:flex;gap:9px;margin-top:22px;background:white;padding:7px;border-radius:14px;max-width:720px;box-shadow:0 8px 24px #003d1d25}
+.search input{flex:1;min-width:0;border:0;outline:0;padding:12px;font-size:16px;color:var(--ink)}button{font:inherit;cursor:pointer;border:0}.search button,.primary{background:var(--green);color:white;padding:12px 19px;border-radius:10px;font-weight:700}
+main{max-width:1120px;margin:auto;padding:22px 18px 50px}.toolbar{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}.toolbar h2{font-size:21px;margin:10px 0}
+.categories{display:flex;gap:8px;overflow:auto;padding:12px 0 17px}.chip{white-space:nowrap;background:white;border:1px solid var(--line);color:#425249;padding:9px 14px;border-radius:999px}.chip.active{background:var(--mint);border-color:#a8d9ba;color:var(--dark);font-weight:700}
+.controls{display:flex;align-items:center;gap:9px}.controls select{border:1px solid var(--line);border-radius:9px;background:white;padding:10px;color:var(--ink)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:14px}.card{background:white;border:1px solid var(--line);border-radius:16px;padding:15px;position:relative;box-shadow:0 3px 12px #143b2410;display:flex;flex-direction:column;min-height:250px}
+.card-top{display:flex;justify-content:space-between;align-items:flex-start}.emoji{font-size:43px;background:#f3f8f4;border-radius:13px;width:68px;height:68px;display:grid;place-items:center}.heart{background:#f5f8f6;border-radius:50%;width:36px;height:36px;font-size:19px;color:#6b7a70}.heart.saved{color:#e04b63;background:#fff0f2}
+.card h3{font-size:16px;margin:13px 0 5px}.sub{color:var(--muted);font-size:12px}.price{font-size:23px;font-weight:800;color:var(--green);margin:10px 0 2px}.old{font-size:12px;color:#89948d;text-decoration:line-through}.saving{font-size:12px;color:#087b43;font-weight:700;margin:6px 0 12px}.actions{display:flex;gap:8px;margin-top:auto}.actions button{flex:1;padding:10px 8px;border-radius:9px;font-size:13px;font-weight:700}.compare{background:var(--mint);color:var(--dark)}.buy{background:var(--green);color:white}
+.empty{background:white;border:1px dashed #cbd8ce;border-radius:14px;padding:30px;text-align:center;color:var(--muted);grid-column:1/-1}
+.note{font-size:12px;color:var(--muted);line-height:1.5;margin-top:22px;background:#edf3ef;padding:13px 15px;border-radius:10px}
+footer{text-align:center;padding:25px 18px;color:#738078;font-size:13px}
+.modal-backdrop{position:fixed;inset:0;background:#071b10a8;display:none;align-items:center;justify-content:center;padding:18px;z-index:5}.modal-backdrop.open{display:flex}.modal{background:white;border-radius:18px;max-width:470px;width:100%;padding:21px;max-height:85vh;overflow:auto}.modal-head{display:flex;justify-content:space-between;align-items:center}.modal-head h2{font-size:20px;margin:0}.close{background:#edf3ef;border-radius:50%;width:34px;height:34px;font-size:20px}.store-row{display:flex;justify-content:space-between;gap:10px;border-bottom:1px solid var(--line);padding:14px 0}.store-row strong{color:var(--green)}.hidden{display:none!important}
+@media(max-width:520px){header{padding:18px 16px 24px}.tag{display:none}.search button{padding:11px 13px}.grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.card{padding:12px;min-height:248px}.emoji{width:57px;height:57px;font-size:35px}.card h3{font-size:14px}.price{font-size:19px}.actions{flex-direction:column}.actions button{padding:9px}.controls{width:100%}.controls select{flex:1}}
 </style>
 </head>
 <body>
-
 <header>
-  <div class="logo">🛒 Economiza Aí</div>
-  <p>Encontre ofertas e economize nas suas compras!</p>
+ <div class="top"><div class="brand">🛒 Economiza <span>Aí</span></div><div class="tag">Compare. Economize. Compre melhor.</div></div>
+ <section class="hero"><h1>Seu dinheiro vale mais.</h1><p>Pesquise, compare e descubra oportunidades de economia.</p>
+  <div class="search"><input id="search" type="search" placeholder="O que você quer encontrar? Ex.: fone bluetooth" aria-label="Buscar produtos"><button id="searchBtn">Buscar</button></div>
+ </section>
 </header>
-
 <main>
-  <h2>O que você está procurando?</h2>
-  <div class="search">
-    <input id="search" placeholder="Ex: celular, televisão...">
-    <button onclick="render()">Buscar</button>
-  </div>
-
-  <h2>Categorias</h2>
-  <div class="categories" id="categories">
-    <button class="active" onclick="category('Todos',this)">Todos</button>
-    <button onclick="category('Eletrônicos',this)">📱 Eletrônicos</button>
-    <button onclick="category('Casa',this)">🏠 Casa</button>
-    <button onclick="category('Moda',this)">👕 Moda</button>
-  </div>
-
-  <h2>🔥 Ofertas em destaque</h2>
-  <div class="products" id="products"></div>
+ <div class="toolbar"><h2>Encontre seu produto</h2><div class="controls"><select id="sort" aria-label="Ordenar produtos"><option value="featured">Em destaque</option><option value="low">Menor preço</option><option value="high">Maior preço</option><option value="saving">Maior desconto</option></select></div></div>
+ <nav class="categories" aria-label="Categorias">
+  <button class="chip active" data-cat="Todos">Todos</button><button class="chip" data-cat="Eletrônicos">📱 Eletrônicos</button><button class="chip" data-cat="Casa">🏠 Casa</button><button class="chip" data-cat="Moda">👕 Moda</button><button class="chip" data-cat="Favoritos">❤️ Favoritos</button>
+ </nav>
+ <div class="toolbar"><h2 id="sectionTitle">🔥 Ofertas em destaque</h2><span class="sub" id="count"></span></div>
+ <section class="grid" id="products" aria-live="polite"></section>
+ <div class="note"><strong>Importante:</strong> esta é a primeira versão demonstrativa. Os produtos, preços e lojas exibidos são exemplos fictícios, não ofertas verificadas. Para comparar preços reais e atualizar valores automaticamente, precisaremos integrar fontes de lojas ou APIs autorizadas.</div>
 </main>
-
-<footer>
-  Economiza Aí © 2026<br>
-  Compare preços e economize!
-  <p>Preços ilustrativos para demonstração.</p>
-</footer>
-
+<footer>Economiza Aí © 2026 · Compare. Economize. Compre melhor.</footer>
+<div class="modal-backdrop" id="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle"><div class="modal"><div class="modal-head"><h2 id="modalTitle">Comparar preços</h2><button class="close" id="closeModal" aria-label="Fechar">×</button></div><div id="modalContent"></div></div></div>
 <script>
-const items = [
-  {name:"Fone Bluetooth",price:59.90,old:99.90,store:"Loja exemplo",cat:"Eletrônicos",icon:"🎧"},
-  {name:"Smartphone",price:899,old:1199,store:"Loja exemplo",cat:"Eletrônicos",icon:"📱"},
-  {name:"Liquidificador",price:89.90,old:129.90,store:"Loja exemplo",cat:"Casa",icon:"🥤"},
-  {name:"Tênis casual",price:119.90,old:179.90,store:"Loja exemplo",cat:"Moda",icon:"👟"},
-  {name:"Luminária LED",price:39.90,old:69.90,store:"Loja exemplo",cat:"Casa",icon:"💡"},
-  {name:"Camiseta",price:49.90,old:79.90,store:"Loja exemplo",cat:"Moda",icon:"👕"}
+const products=[
+{id:1,name:"Fone Bluetooth",price:59.90,old:99.90,cat:"Eletrônicos",icon:"🎧",stores:[["Loja demonstrativa A",59.90],["Loja demonstrativa B",69.90],["Loja demonstrativa C",74.90]]},
+{id:2,name:"Smartphone",price:899,old:1199,cat:"Eletrônicos",icon:"📱",stores:[["Loja demonstrativa A",899],["Loja demonstrativa B",949],["Loja demonstrativa C",999]]},
+{id:3,name:"Liquidificador",price:89.90,old:129.90,cat:"Casa",icon:"🥤",stores:[["Loja demonstrativa A",89.90],["Loja demonstrativa B",99.90],["Loja demonstrativa C",109.90]]},
+{id:4,name:"Tênis casual",price:119.90,old:179.90,cat:"Moda",icon:"👟",stores:[["Loja demonstrativa A",119.90],["Loja demonstrativa B",139.90],["Loja demonstrativa C",149.90]]},
+{id:5,name:"Luminária LED",price:39.90,old:69.90,cat:"Casa",icon:"💡",stores:[["Loja demonstrativa A",39.90],["Loja demonstrativa B",44.90],["Loja demonstrativa C",52.90]]},
+{id:6,name:"Camiseta básica",price:49.90,old:79.90,cat:"Moda",icon:"👕",stores:[["Loja demonstrativa A",49.90],["Loja demonstrativa B",54.90],["Loja demonstrativa C",59.90]]},
+{id:7,name:"Mochila",price:79.90,old:119.90,cat:"Moda",icon:"🎒",stores:[["Loja demonstrativa A",79.90],["Loja demonstrativa B",89.90],["Loja demonstrativa C",99.90]]},
+{id:8,name:"Air fryer",price:289.90,old:399.90,cat:"Casa",icon:"🍟",stores:[["Loja demonstrativa A",289.90],["Loja demonstrativa B",319.90],["Loja demonstrativa C",349.90]]}
 ];
-
-let selected = "Todos";
-
-function category(cat,btn) {
-  selected = cat;
-  document.querySelectorAll(".categories button").forEach(b=>b.classList.remove("active"));
-  btn.classList.add("active");
-  render();
+let category="Todos";
+let favorites=JSON.parse(localStorage.getItem("economiza-favs")||"[]");
+const money=n=>n.toLocaleString("pt-BR",{style:"currency",currency:"BRL"});
+function render(){
+ const q=document.getElementById("search").value.trim().toLocaleLowerCase("pt-BR");
+ let list=products.filter(p=>(category==="Todos"||category==="Favoritos"&&favorites.includes(p.id)||p.cat===category)&&p.name.toLocaleLowerCase("pt-BR").includes(q));
+ const sort=document.getElementById("sort").value;
+ if(sort==="low")list.sort((a,b)=>a.price-b.price);
+ if(sort==="high")list.sort((a,b)=>b.price-a.price);
+ if(sort==="saving")list.sort((a,b)=>(b.old-b.price)-(a.old-a.price));
+ document.getElementById("sectionTitle").textContent=category==="Favoritos"?"❤️ Seus favoritos":"🔥 Ofertas em destaque";
+ document.getElementById("count").textContent=list.length+" produto(s)";
+ document.getElementById("products").innerHTML=list.length?list.map(p=>{const discount=Math.round((1-p.price/p.old)*100);return '<article class="card"><div class="card-top"><div class="emoji">'+p.icon+'</div><button class="heart '+(favorites.includes(p.id)?"saved":"")+'" data-fav="'+p.id+'" aria-label="Favoritar '+p.name+'">'+(favorites.includes(p.id)?"♥":"♡")+'</button></div><h3>'+p.name+'</h3><div class="sub">'+p.cat+'</div><div class="old">'+money(p.old)+'</div><div class="price">'+money(p.price)+'</div><div class="saving">Exemplo de '+discount+'% de desconto</div><div class="actions"><button class="compare" data-compare="'+p.id+'">Comparar preços</button></div></article>'}).join(""):'<div class="empty">Não encontramos produtos. Tente outra busca ou categoria.</div>';
 }
-
-function render() {
-  const query = document.getElementById("search").value.toLowerCase();
-  const filtered = items.filter(p =>
-    (selected === "Todos" || p.cat === selected) &&
-    p.name.toLowerCase().includes(query)
-  );
-
-  document.getElementById("products").innerHTML = filtered.length
-    ? filtered.map(p => `
-      <div class="card">
-        <div class="product-icon">${p.icon}</div>
-        <h3>${p.name}</h3>
-        <div class="old">R$ ${p.old.toFixed(2).replace(".",",")}</div>
-        <div class="price">R$ ${p.price.toFixed(2).replace(".",",")}</div>
-        <div class="store">${p.store}</div>
-      </div>
-    `).join("")
-    : "<p>Nenhum produto encontrado.</p>";
-}
-
+document.querySelectorAll(".chip").forEach(btn=>btn.addEventListener("click",()=>{category=btn.dataset.cat;document.querySelectorAll(".chip").forEach(b=>b.classList.toggle("active",b===btn));render()}));
+document.getElementById("searchBtn").addEventListener("click",render);
+document.getElementById("search").addEventListener("keydown",e=>{if(e.key==="Enter")render()});
+document.getElementById("search").addEventListener("input",render);
+document.getElementById("sort").addEventListener("change",render);
+document.getElementById("products").addEventListener("click",e=>{
+ const fav=e.target.closest("[data-fav]");if(fav){const id=Number(fav.dataset.fav);favorites=favorites.includes(id)?favorites.filter(x=>x!==id):[...favorites,id];localStorage.setItem("economiza-favs",JSON.stringify(favorites));render();return}
+ const cmp=e.target.closest("[data-compare]");if(cmp){const p=products.find(x=>x.id===Number(cmp.dataset.compare));document.getElementById("modalTitle").textContent="Comparar: "+p.name;document.getElementById("modalContent").innerHTML=p.stores.slice().sort((a,b)=>a[1]-b[1]).map((s,i)=>'<div class="store-row"><span>'+s[0]+(i===0?' · menor preço':'')+'</span><strong>'+money(s[1])+'</strong></div>').join("")+'<p class="sub">Valores fictícios para demonstração. Frete não incluído.</p>';document.getElementById("modal").classList.add("open")}
+});
+document.getElementById("closeModal").addEventListener("click",()=>document.getElementById("modal").classList.remove("open"));
+document.getElementById("modal").addEventListener("click",e=>{if(e.target.id==="modal")e.currentTarget.classList.remove("open")});
 render();
 </script>
 </body>
