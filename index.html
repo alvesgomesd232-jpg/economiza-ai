@@ -1,0 +1,152 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Economiza Aí</title>
+<style>
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f4f7f5;
+  color: #17251d;
+}
+header {
+  background: #087b43;
+  color: white;
+  padding: 25px 18px;
+}
+.logo { font-size: 25px; font-weight: bold; }
+header p { margin-bottom: 0; }
+main { padding: 18px; max-width: 850px; margin: auto; }
+h2 { margin-top: 24px; }
+.search {
+  display: flex;
+  gap: 8px;
+  margin-top: 20px;
+}
+input {
+  min-width: 0;
+  flex: 1;
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  font-size: 16px;
+}
+button {
+  border: 0;
+  border-radius: 10px;
+  padding: 12px 16px;
+  background: #087b43;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}
+.categories {
+  display: flex;
+  gap: 9px;
+  overflow-x: auto;
+  padding: 10px 0;
+}
+.categories button {
+  white-space: nowrap;
+  background: #e0eee5;
+  color: #087b43;
+}
+.categories button.active { background: #087b43; color: white; }
+.products {
+  display: grid;
+  grid-template-columns: repeat(auto-fit,minmax(145px,1fr));
+  gap: 12px;
+}
+.card {
+  background: white;
+  padding: 15px;
+  border-radius: 14px;
+  box-shadow: 0 2px 9px #0000000c;
+}
+.product-icon { font-size: 40px; }
+.card h3 { font-size: 16px; }
+.price { color: #087b43; font-size: 21px; font-weight: bold; }
+.old { color: #888; text-decoration: line-through; font-size: 13px; }
+.store { color: #777; font-size: 13px; }
+footer { text-align: center; padding: 30px; color: #777; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">🛒 Economiza Aí</div>
+  <p>Encontre ofertas e economize nas suas compras!</p>
+</header>
+
+<main>
+  <h2>O que você está procurando?</h2>
+  <div class="search">
+    <input id="search" placeholder="Ex: celular, televisão...">
+    <button onclick="render()">Buscar</button>
+  </div>
+
+  <h2>Categorias</h2>
+  <div class="categories" id="categories">
+    <button class="active" onclick="category('Todos',this)">Todos</button>
+    <button onclick="category('Eletrônicos',this)">📱 Eletrônicos</button>
+    <button onclick="category('Casa',this)">🏠 Casa</button>
+    <button onclick="category('Moda',this)">👕 Moda</button>
+  </div>
+
+  <h2>🔥 Ofertas em destaque</h2>
+  <div class="products" id="products"></div>
+</main>
+
+<footer>
+  Economiza Aí © 2026<br>
+  Compare preços e economize!
+  <p>Preços ilustrativos para demonstração.</p>
+</footer>
+
+<script>
+const items = [
+  {name:"Fone Bluetooth",price:59.90,old:99.90,store:"Loja exemplo",cat:"Eletrônicos",icon:"🎧"},
+  {name:"Smartphone",price:899,old:1199,store:"Loja exemplo",cat:"Eletrônicos",icon:"📱"},
+  {name:"Liquidificador",price:89.90,old:129.90,store:"Loja exemplo",cat:"Casa",icon:"🥤"},
+  {name:"Tênis casual",price:119.90,old:179.90,store:"Loja exemplo",cat:"Moda",icon:"👟"},
+  {name:"Luminária LED",price:39.90,old:69.90,store:"Loja exemplo",cat:"Casa",icon:"💡"},
+  {name:"Camiseta",price:49.90,old:79.90,store:"Loja exemplo",cat:"Moda",icon:"👕"}
+];
+
+let selected = "Todos";
+
+function category(cat,btn) {
+  selected = cat;
+  document.querySelectorAll(".categories button").forEach(b=>b.classList.remove("active"));
+  btn.classList.add("active");
+  render();
+}
+
+function render() {
+  const query = document.getElementById("search").value.toLowerCase();
+  const filtered = items.filter(p =>
+    (selected === "Todos" || p.cat === selected) &&
+    p.name.toLowerCase().includes(query)
+  );
+
+  document.getElementById("products").innerHTML = filtered.length
+    ? filtered.map(p => `
+      <div class="card">
+        <div class="product-icon">${p.icon}</div>
+        <h3>${p.name}</h3>
+        <div class="old">R$ ${p.old.toFixed(2).replace(".",",")}</div>
+        <div class="price">R$ ${p.price.toFixed(2).replace(".",",")}</div>
+        <div class="store">${p.store}</div>
+      </div>
+    `).join("")
+    : "<p>Nenhum produto encontrado.</p>";
+}
+
+render();
+</script>
+</body>
+</html>
